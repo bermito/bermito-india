@@ -1,0 +1,108 @@
+/* ==================================================================
+   BERMITO DESIGN TOKENS
+   Every colour, size, duration and easing used on bermito.in is
+   declared here. Nothing else in the CSS should hard-code a value.
+   Hex values are taken directly from Bermito Brand Guidelines 2026.
+   ================================================================== */
+
+@font-face {
+  font-family: 'Brunswick Grotesque';
+  src: url('../assets/fonts/BrunswickGrotesque-Regular.woff2') format('woff2'),
+       url('../assets/fonts/BrunswickGrotesque-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/dm-sans-400.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/dm-sans-500.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'DM Sans';
+  src: url('../assets/fonts/dm-sans-600.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+
+:root {
+  /* --- PRIMARY (guidelines §4) ---------------------------------- */
+  --brown:        #51453D;
+  --yellow:       #FFE212;
+  --paper:        #FBFAF7;
+  --white:        #FFFFFF;
+
+  /* Tints of brown for rules, captions and quiet UI. Brown is used
+     everywhere black would normally be used. */
+  --brown-70:     rgba(81, 69, 61, .70);
+  --brown-52:     rgba(81, 69, 61, .52);
+  --brown-24:     rgba(81, 69, 61, .24);
+  --brown-12:     rgba(81, 69, 61, .12);
+
+  /* --- SECONDARY (guidelines §4, sampled from the palette page) --
+     Used one combination per chapter, never all at once.           */
+  --beige:        #D5D8B8;   /* Warm Beige       */
+  --cool-gray:    #9BAFAB;   /* Cool Gray        */
+  --royal-blue:   #1C70EC;   /* Royal Blue       */
+  --forest:       #1E564D;   /* Deep Forest Green*/
+  --apple:        #77D654;   /* Apple Green      */
+  --violet:       #8C79ED;   /* Periwinkle Violet*/
+  --charcoal:     #393F4C;   /* Charcoal Gray    */
+  --coral:        #F45F53;   /* Salmon Red       */
+
+  /* --- TYPE ------------------------------------------------------ */
+  --font-display: 'Brunswick Grotesque', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+  --font-body:    'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --t-display:  clamp(2.9rem, 8.2vw, 8.4rem);
+  --t-h2:       clamp(2.1rem, 5.2vw, 4.6rem);
+  --t-h3:       clamp(1.5rem, 2.6vw, 2.2rem);
+  --t-lead:     clamp(1.1rem, 1.55vw, 1.42rem);
+  --t-body:     clamp(1rem, 1.1vw, 1.09rem);
+  --t-small:    .875rem;
+  --t-label:    .69rem;   /* eyebrows, coordinates, corner data */
+
+  --track-label: .18em;
+  --track-display: -.005em;
+  --leading-display: .88;
+  --leading-body: 1.62;
+
+  /* --- SPACE ----------------------------------------------------- */
+  --gutter:     clamp(1.25rem, 4.2vw, 4.5rem);
+  --section:    clamp(5rem, 11vh, 10rem);
+  --stack-sm:   .75rem;
+  --stack-md:   1.5rem;
+  --stack-lg:   3rem;
+  --maxw:       1680px;
+
+  /* --- CIRCLE SYSTEM ---------------------------------------------
+     Proportions of the four forms in the Bermito logomark
+     (observe → smell → sip & slurp → enjoy & finish).              */
+  --mark-1: 1;
+  --mark-2: .78;
+  --mark-3: .52;
+  --mark-4: .22;
+
+  /* --- MOTION ----------------------------------------------------- */
+  --dur-fast:  240ms;
+  --dur-mid:   620ms;
+  --dur-slow:  1100ms;
+  --ease:      cubic-bezier(.22, .61, .36, 1);
+  --ease-inout: cubic-bezier(.65, .02, .21, 1);
+
+  /* --- LAYERS ----------------------------------------------------- */
+  --z-map:     0;
+  --z-content: 10;
+  --z-nav:     60;
+  --z-loader:  90;
+  --z-skip:    100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 1ms; --dur-mid: 1ms; --dur-slow: 1ms; }
+}

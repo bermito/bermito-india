@@ -1,0 +1,13 @@
+{
+  "name": "Bermito Coffee Roastery",
+  "short_name": "Bermito",
+  "description": "Kerala's first specialty coffee roastery. Born in Kozhikode.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#51453D",
+  "theme_color": "#51453D",
+  "icons": [
+    { "src": "/assets/brand/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
+    { "src": "/assets/brand/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
