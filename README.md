@@ -21,9 +21,34 @@ npm start         # serves the folder at http://localhost:4173
 `npm run build` is safe to re-run as often as you like — it rewinds its own
 previous output before regenerating.
 
-To deploy, upload the folder as-is to any static host (Netlify, Vercel,
-Cloudflare Pages, S3, or plain nginx). There is no server, no database and no
-CMS in this first version.
+### Deploying
+
+Upload the folder as-is to any static host. There is no server, no database and
+no CMS in this first version.
+
+**Vercel.** `vercel.json` is included and sets the output directory to the repo
+root. Without it Vercel looks for a `public/` folder, finds nothing, and fails
+with *"No Output Directory named 'public' found after the Build completed."*
+If you configured the project through the dashboard before adding this file,
+also check **Project Settings → Build and Deployment**:
+
+| Setting | Value |
+|---|---|
+| Framework Preset | Other |
+| Build Command | `node build.js` |
+| Output Directory | `.` |
+| Install Command | leave default |
+
+Dashboard settings override `vercel.json` in some project configurations, so if
+a deploy still fails, clear the Output Directory override in the dashboard and
+let the file take effect.
+
+**Netlify.** `netlify.toml` is included (`publish = "."`).
+
+**Cloudflare Pages.** Build command `node build.js`, output directory `/`.
+
+**Any other host / nginx / S3.** Just upload the folder. The build step is
+optional — `index.html` is committed already built.
 
 ---
 
