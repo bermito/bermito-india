@@ -116,6 +116,18 @@ img, svg { max-width: 100%; display: block; }
 
 .track { height: 660vh; }
 
+/* circle wipe — a brand dot that swallows the screen at set cuts */
+.wipe {
+  position: absolute; left: 50%; top: 50%;
+  width: 240vmax; height: 240vmax;
+  margin: -120vmax 0 0 -120vmax;
+  border-radius: 50%;
+  background: var(--yellow);
+  transform: scale(0);
+  pointer-events: none;
+  z-index: 4;
+}
+
 /* --- HUD ---------------------------------------------------------- */
 .hud {
   position: absolute; top: 0; left: 0; right: 0; z-index: 6;

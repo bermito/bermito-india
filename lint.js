@@ -23,7 +23,7 @@ const imgs = html.match(/<img\b[^>]*>/g) || [];
 imgs.forEach((t) => { if (!/\balt=/.test(t)) err(`<img> without alt: ${t.slice(0, 70)}`); });
 
 /* 3. one H1 per page */
-for (const page of ['classic.html','index.html']){
+for (const page of ['classic.html','index.html','descent.html']){
   const n = (fs.readFileSync(path.join(ROOT, page),'utf8').match(/<h1\b/g)||[]).length;
   if (n !== 1) err(`${page}: expected exactly one <h1>, found ${n}`);
 }
