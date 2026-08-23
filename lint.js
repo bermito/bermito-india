@@ -6,7 +6,8 @@ let errors = 0, warnings = 0;
 const err = (m) => { console.error('  ERROR  ' + m); errors++; };
 const warn = (m) => { console.warn('  WARN   ' + m); warnings++; };
 
-const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
+const html = fs.readFileSync(path.join(ROOT, 'classic.html'), 'utf8')
+           + fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 
 /* 1. every local asset referenced actually exists */
 const refs = new Set();
@@ -21,9 +22,11 @@ refs.forEach((r) => {
 const imgs = html.match(/<img\b[^>]*>/g) || [];
 imgs.forEach((t) => { if (!/\balt=/.test(t)) err(`<img> without alt: ${t.slice(0, 70)}`); });
 
-/* 3. one H1, and it must be real text */
-const h1 = html.match(/<h1\b/g) || [];
-if (h1.length !== 1) err(`expected exactly one <h1>, found ${h1.length}`);
+/* 3. one H1 per page */
+for (const page of ['classic.html','index.html']){
+  const n = (fs.readFileSync(path.join(ROOT, page),'utf8').match(/<h1\b/g)||[]).length;
+  if (n !== 1) err(`${page}: expected exactly one <h1>, found ${n}`);
+}
 
 /* 4. no visible placeholder tokens left in the markup */
 const strippedOfComments = html.replace(/<!--[\s\S]*?-->/g, '');

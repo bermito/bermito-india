@@ -1,8 +1,18 @@
-# Bermito.in — The Coordinates of Bermito
+# Bermito.in — The Descent
 
-The brand-story site for Bermito Coffee Roastery, Kozhikode. It introduces the
-brand, tells the origin story, and hands visitors over to **bermito.com** when
-they want to shop, read the Journal or visit the Brew Room.
+The brand experience for Bermito Coffee Roastery, Kozhikode. One continuous
+camera move — WORLD → INDIA → KERALA → KOZHIKODE → the roast → first crack →
+into the cup — with the whole universe rendered in the Bermito circle system
+and the colour of everything following the roast: raw green → yellow → brown.
+
+Two pages:
+
+- **index.html — The Descent.** The immersive Three.js film. Requires WebGL
+  and JavaScript; politely bows out otherwise.
+- **classic.html — the classic story.** The full editorial site (map journey,
+  five chapters, tasting ritual, values). It is the automatic fallback for
+  no-JS (meta refresh), reduced motion and no-WebGL visitors, and is linked
+  from the descent's landing for anyone who prefers a calmer read.
 
 This is deliberately **not** a second shop. No catalogue, no cart, no checkout.
 
@@ -55,19 +65,39 @@ optional — `index.html` is committed already built.
 ## Where things live
 
 ```
-index.html                 the whole page (one document, deep-linked sections)
+index.html                 THE OBJECT — the immersive film
+classic.html               the classic story site (also the fallback)
 content/brandStory.js      ← EDIT THIS. Copy, chapters, links, unapproved facts
-styles/tokens.css          ← EDIT THIS. Colours, type, spacing, motion, z-index
-styles/main.css            layout and components
+styles/tokens.css          ← EDIT THIS. Colours, type, spacing, motion
+styles/descent.css         film HUD, beats, loader, landing
+styles/main.css            classic page layout and components
+scripts/experience.js      the Three.js object (mark, bean, drum, cup, camera)
+scripts/descent.js         driver: loader, scroll → progress, beats, wipe
 scripts/geo-data.js        generated geography (Natural Earth, public domain)
-scripts/map-journey.js     the scroll-linked camera flight
-scripts/main.js            loader, scroll engine, story, navigation
+scripts/map-journey.js     classic page's SVG camera flight
+scripts/main.js            classic page behaviour
+assets/vendor/three.module.min.js   Three.js r170 (MIT) + RoomEnvironment, self-hosted
 assets/brand/              approved logo, disk, tasting illustrations, icons
 assets/fonts/              Brunswick Grotesque + DM Sans (self-hosted)
 assets/images/             photography — currently branded placeholders
-build.js                   renders brandStory.js into index.html
-lint.js                    pre-flight checks
+build.js                   renders brandStory.js into classic.html + inlines SVGs
+lint.js                    pre-flight checks (both pages)
 ```
+
+### The Object, briefly
+
+One physical object holds the centre of the screen for the whole visit and
+scroll transforms it: the glossy ceramic tasting mark unstacks into a raw
+green coffee bean (a real modelled crease, not a sphere); the bean multiplies
+into ~280 instanced beans tumbling inside a brushed-steel drum, each turning
+green → yellow → brown as the heat passes its own threshold; first crack is a
+coral flash with a camera shake; then a ribbed ceramic cup — lathed from the
+tasting-cup silhouette with fluted sides, a yellow rim and glossy coffee —
+rises, with steam and the tagline disk floating behind it. Studio PBR
+lighting (RoomEnvironment reflections, ACES tone mapping), a soft contact
+shadow, and drag-to-rotate on the object. The room's colour follows the
+roast: paper → raw green tint → warm amber → coral flash → deep brown.
+Story text lives in DOM overlays (real, crawlable HTML) timed to the film.
 
 ### Changing copy
 

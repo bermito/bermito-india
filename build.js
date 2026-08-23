@@ -13,7 +13,8 @@ const path = require('path');
 const vm = require('vm');
 
 const ROOT = __dirname;
-const HTML = path.join(ROOT, 'index.html');
+const HTML = path.join(ROOT, 'classic.html');   // generated story sections live here
+const IMMERSIVE = path.join(ROOT, 'index.html'); // gets the SVG-inline pass only
 
 /* --- load the content file in a sandbox ------------------------- */
 const sandbox = { window: {} };
@@ -101,6 +102,19 @@ html = html.replace(/<span([^>]*?)data-inline="([^"]+)"([^>]*?)><\/span>/g, (m, 
 });
 
 fs.writeFileSync(HTML, html);
+
+/* --- same inline pass for the immersive page -------------------- */
+let im = fs.readFileSync(IMMERSIVE, 'utf8');
+im = im.replace(/<!--inline:([^|]+)\|([^>]*?)-->[\s\S]*?<!--\/inline-->/g,
+  (m, file, attrs) => `<span ${attrs} data-inline="${file}"></span>`);
+im = im.replace(/<span([^>]*?)data-inline="([^"]+)"([^>]*?)><\/span>/g, (m, pre, file, post) => {
+  const attrs = (pre + post).replace(/\s+/g, ' ').trim();
+  let svg = fs.readFileSync(path.join(ROOT, file), 'utf8').trim().replace(/^<\?xml[^>]*\?>\s*/, '');
+  svg = svg.replace('<svg', `<svg ${attrs} focusable="false"`);
+  inlined++;
+  return `<!--inline:${file}|${attrs}-->${svg}<!--/inline-->`;
+});
+fs.writeFileSync(IMMERSIVE, im);
 
 /* --- report ------------------------------------------------------ */
 const pending = Object.entries(C.facts).filter(([, v]) => v === null).map(([k]) => k);

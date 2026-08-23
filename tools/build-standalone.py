@@ -6,8 +6,10 @@ Browsers block webfonts (and some other assets) when a page is opened straight
 from disk with file://, because the page has a null origin. That makes the
 normal build look wrong when you just double-click index.html.
 
-This bundles the CSS, JavaScript, geography, fonts and images into one HTML
-document as data URIs, so it works with no server at all.
+This bundles the CLASSIC page (classic.html) — CSS, JavaScript, geography,
+fonts and images — into one HTML document as data URIs, so it works with no
+server at all. The immersive descent (index.html) uses ES modules and Three.js
+and needs to be served; deploy the folder or run `npm start` to see it.
 
 Use it for review and sharing only. Deploy the real folder to a host.
 """
@@ -31,7 +33,7 @@ def read(rel):
     return (ROOT / rel).read_text(encoding='utf-8')
 
 
-html = read('index.html')
+html = read('classic.html')
 
 # ---- CSS, with @font-face sources embedded --------------------------------
 css = read('styles/tokens.css') + '\n' + read('styles/main.css')
@@ -64,8 +66,8 @@ html = html.replace('<link rel="manifest" href="site.webmanifest">', '')
 html = re.sub(r'<link rel="preload"[^>]*>\s*', '', html)
 # nothing is lazy in a single file — load it all up front
 html = html.replace(' loading="lazy"', '')
-html = html.replace('<title>', '<!-- Self-contained preview build. Deploy the '
-                    'bermito-in folder, not this file. -->\n<title>')
+html = html.replace('<title>', '<!-- Self-contained CLASSIC preview. The immersive '
+                    'descent needs the deployed folder. -->\n<title>')
 
 OUT.write_text(html, encoding='utf-8')
 print(f'Wrote {OUT} — {OUT.stat().st_size / 1024:.0f} KB, '
